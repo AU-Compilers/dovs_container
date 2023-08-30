@@ -1,4 +1,4 @@
-FROM --platform=linux/x86-64 ubuntu:20.04
+FROM --platform=linux/x86-64 ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get -y upgrade && apt-get -y install \
@@ -15,18 +15,12 @@ RUN apt-get update && apt-get -y upgrade && apt-get -y install \
     git \
     bzip2 \
     wget \
-    # for VS Code live sharing
-    libicu66 \
-    # for dune build --watch
-    inotify-tools \ 
-    dos2unix \
-    colordiff
 
 
 # RUN wget -O ~/vsls-reqs https://aka.ms/vsls-linux-prereq-script && chmod +x ~/vsls-reqs && ~/vsls-reqs
 
 ENV OPAMYES=true OPAMROOTISOK=true
-RUN curl -sL https://github.com/ocaml/opam/releases/download/2.1.3/opam-2.1.3-x86_64-linux -o opam \
+RUN curl -sL https://github.com/ocaml/opam/releases/download/2.1.5/opam-2.1.5-x86_64-linux -o opam \
     && install opam /usr/local/bin/opam \
     && opam init --disable-sandboxing -a -y --bare \
     && opam update

@@ -14,7 +14,8 @@ RUN apt-get update && apt-get -y upgrade && apt-get -y install \
     patch \
     git \
     bzip2 \
-    wget
+    wget \
+    sh
 
 
 # RUN wget -O ~/vsls-reqs https://aka.ms/vsls-linux-prereq-script && chmod +x ~/vsls-reqs && ~/vsls-reqs

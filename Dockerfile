@@ -14,8 +14,7 @@ RUN apt-get update && apt-get -y upgrade && apt-get -y install \
     patch \
     git \
     bzip2 \
-    wget \
-    sh
+    wget
 
 
 # RUN wget -O ~/vsls-reqs https://aka.ms/vsls-linux-prereq-script && chmod +x ~/vsls-reqs && ~/vsls-reqs
@@ -32,6 +31,6 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 # Install these dependencies early to increase intermediate image reuse
 COPY ./dovs.opam* .
 
-RUN opam install . && \
+RUN opam install dune stdio menhir merlin fmt utop ocaml-lsp-server ocamlformat ocamlformat-rpc && \
     opam user-setup install && \
     eval $(opam env)

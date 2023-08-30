@@ -14,7 +14,7 @@ RUN apt-get update && apt-get -y upgrade && apt-get -y install \
     patch \
     git \
     bzip2 \
-    wget \
+    wget
 
 
 # RUN wget -O ~/vsls-reqs https://aka.ms/vsls-linux-prereq-script && chmod +x ~/vsls-reqs && ~/vsls-reqs
@@ -25,12 +25,12 @@ RUN curl -sL https://github.com/ocaml/opam/releases/download/2.1.5/opam-2.1.5-x8
     && opam init --disable-sandboxing -a -y --bare \
     && opam update
 
-RUN opam switch create 4.14.0
+RUN opam switch create 5.0.0
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install these dependencies early to increase intermediate image reuse
-COPY ./tiger.opam* .
+COPY ./dovs.opam* .
 
-RUN opam install .  --deps-only --locked && \
+RUN opam install . && \
     opam user-setup install && \
     eval $(opam env)

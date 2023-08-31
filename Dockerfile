@@ -15,7 +15,8 @@ RUN apt-get update && apt-get -y upgrade && apt-get -y install \
     git \
     bzip2 \
     wget \
-    graphviz
+    graphviz \
+    tree
 
 
 # RUN wget -O ~/vsls-reqs https://aka.ms/vsls-linux-prereq-script && chmod +x ~/vsls-reqs && ~/vsls-reqs

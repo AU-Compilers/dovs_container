@@ -29,6 +29,7 @@ RUN curl -sL https://github.com/ocaml/opam/releases/download/2.2.0/opam-2.2.0-x8
     && opam update
 
 RUN opam switch create 5.2.0
+RUN opam update
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install these dependencies early to increase intermediate image reuse

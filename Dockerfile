@@ -22,19 +22,23 @@ RUN apt-get update && apt-get -y upgrade && apt-get -y install \
 # RUN wget -O ~/vsls-reqs https://aka.ms/vsls-linux-prereq-script && chmod +x ~/vsls-reqs && ~/vsls-reqs
 
 ENV OPAMYES=true OPAMROOTISOK=true
-RUN curl -sL https://github.com/ocaml/opam/releases/download/2.2.0/opam-2.2.0-x86_64-linux -o opam \
-%% RUN curl -sL https://github.com/ocaml/opam/releases/download/2.1.5/opam-2.1.5-x86_64-linux -o opam \
+RUN curl -sL https://github.com/ocaml/opam/releases/download/2.4.1/opam-2.4.1-x86_64-linux -o opam \
     && install opam /usr/local/bin/opam \
     && opam init --disable-sandboxing -a -y --bare \
     && opam update
 
-RUN opam switch create 5.2.0
+RUN opam switch create 5.3.0
 RUN opam update
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install these dependencies early to increase intermediate image reuse
 COPY ./dovs.opam* .
 
-RUN opam install dune stdio menhir merlin fmt utop ocaml-lsp-server ocamlformat ocamlformat-rpc && \
+RUN opam install dune stdio menhir merlin fmt utop ocaml-lsp-server ocamlformat ocamlformat-rpc yojson ppx_yojson_conv \
+      printbox printbox-text cmdliner && \
     opam user-setup install && \
     eval $(opam env)
+
+RUN wget 'https://cs.au.dk/~timany/dolphin-serializer/dolphinSerializer.exe'
+RUN mv dolphinSerializer.exe /usr/local/bin/dolphin-serialize
+RUN chmod +x /usr/local/bin/dolphin-serialize

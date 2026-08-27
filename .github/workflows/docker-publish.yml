@@ -6,6 +6,7 @@ on:
     tags: [ 'v*.*.*' ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io
@@ -48,6 +49,10 @@ jobs:
         with:
           context: .
           platforms: linux/amd64
+          # A bare manifest, not an index: Docker matches an index strictly
+          # against the host platform, so arm64 hosts could not pull it.
+          provenance: false
+          sbom: false
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
